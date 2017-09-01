@@ -1,0 +1,26 @@
+{
+    "name": "slim/queue",
+    "type": "library",
+    "description": "Slim Queue Enables You to push jobs to background workers",
+    "keywords": ["job","queue","worker"],
+    "homepage": "https://slimframework.com",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Glenn Eggleton",
+            "email": "geggleto@gmail.com",
+            "homepage": "https://glenneggleton.com"
+        }
+    ],
+    "autoload" : {
+        "psr-4" : {
+            "Slim\\Queue\\" : "src"
+        }
+    },
+    "require": {
+        "php": ">=5.5.0",
+        "php-amqplib/php-amqplib": "^2.6",
+        "psr/container": "^1.0",
+        "ramsey/uuid": "^3.7"
+    }
+}
