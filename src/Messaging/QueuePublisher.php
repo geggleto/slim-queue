@@ -35,7 +35,8 @@ class QueuePublisher
             ]
         );
 
-        $message = new AMQPMessage($message, array('content_type' => 'application/json', 'delivery_mode' => AMQPMessage::DELIVERY_MODE_PERSISTENT));
-        $this->channel->basic_publish($message, $this->exchangeName);
+        $amqpmessage = new AMQPMessage($message, array('content_type' => 'application/json', 'delivery_mode' => AMQPMessage::DELIVERY_MODE_PERSISTENT));
+
+        $this->channel->basic_publish($amqpmessage, $this->exchangeName);
     }
 }

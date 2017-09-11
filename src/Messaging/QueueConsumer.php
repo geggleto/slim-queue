@@ -51,9 +51,9 @@ class QueueConsumer
     {
         $job = json_decode($message->body, true);
 
-        $jobClass = $this->container->get($job['job']);
-
         try {
+            $jobClass = $this->container->get($job['job']);
+
             $result = $jobClass($job['args']);
         } catch (\Exception $exception)
         {
@@ -66,8 +66,5 @@ class QueueConsumer
         }
 
         $message->delivery_info['channel']->basic_nack($message->delivery_info['delivery_tag']);
-
-        die();
-
     }
 }
