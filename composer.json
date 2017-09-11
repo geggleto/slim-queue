@@ -1,9 +1,8 @@
 {
-    "name": "slim/queue",
+    "name": "geggleto/slimq",
     "type": "library",
-    "description": "Slim Queue Enables You to push jobs to background workers",
+    "description": "SlimQ Enables You to push jobs to background workers",
     "keywords": ["job","queue","worker"],
-    "homepage": "https://slimframework.com",
     "license": "MIT",
     "authors": [
         {
@@ -14,7 +13,7 @@
     ],
     "autoload" : {
         "psr-4" : {
-            "Slim\\Queue\\" : "src"
+            "SlimQ\\" : "src"
         }
     },
     "require": {

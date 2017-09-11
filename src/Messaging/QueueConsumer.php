@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Space\Core\Messaging;
+namespace SlimQ\Messaging;
 
 use PhpAmqpLib\Channel\AMQPChannel;
 use PhpAmqpLib\Message\AMQPMessage;
@@ -25,6 +25,7 @@ class QueueConsumer
     /**
      * QueueConsumer constructor.
      *
+     * @param                    $queueName
      * @param AMQPChannel        $channel
      * @param ContainerInterface $container
      */

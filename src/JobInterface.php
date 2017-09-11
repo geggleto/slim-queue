@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Slim\Queue;
+namespace SlimQ;
 
 
 interface JobInterface

@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Space\Core\Messaging;
+namespace SlimQ\Messaging;
 
 
 use PhpAmqpLib\Channel\AMQPChannel;
@@ -13,15 +13,17 @@ class QueuePublisher
      * @var AMQPChannel
      */
     private $channel;
+    private $exchangeName;
 
     /**
      * QueuePublisher constructor.
      *
      * @param AMQPChannel $channel
      */
-    public function __construct(AMQPChannel $channel)
+    public function __construct($exchangeName, AMQPChannel $channel)
     {
         $this->channel = $channel;
+        $this->exchangeName = $exchangeName;
     }
 
     public function publish($class, array $arguments)
@@ -34,6 +36,6 @@ class QueuePublisher
         );
 
         $message = new AMQPMessage($message, array('content_type' => 'application/json', 'delivery_mode' => AMQPMessage::DELIVERY_MODE_PERSISTENT));
-        $this->channel->basic_publish($message, EXCHANGE_NAME);
+        $this->channel->basic_publish($message, $this->exchangeName);
     }
 }
