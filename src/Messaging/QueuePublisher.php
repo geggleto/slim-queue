@@ -26,7 +26,7 @@ class QueuePublisher
         $this->exchangeName = $exchangeName;
     }
 
-    public function publish($class, array $arguments)
+    public function publish($routingKey, $class, array $arguments)
     {
         $message = json_encode(
             [
@@ -37,6 +37,6 @@ class QueuePublisher
 
         $amqpmessage = new AMQPMessage($message, array('content_type' => 'application/json', 'delivery_mode' => AMQPMessage::DELIVERY_MODE_PERSISTENT));
 
-        $this->channel->basic_publish($amqpmessage, $this->exchangeName);
+        $this->channel->basic_publish($amqpmessage, $this->exchangeName, $routingKey);
     }
 }

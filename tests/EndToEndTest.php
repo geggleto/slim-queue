@@ -28,7 +28,7 @@ class EndToEndTest extends \PHPUnit_Framework_TestCase
 
         $publisher = new QueuePublisher($exchange, $channel);
 
-        $publisher->publish($class, $arguments);
+        $publisher->publish('', $class, $arguments);
     }
 
     public function testConsumer()
