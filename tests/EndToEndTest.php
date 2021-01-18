@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Tests\SlimQ;
+namespace Tests\SimpleQueue;
 
 
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
@@ -10,7 +10,7 @@ use PhpAmqpLib\Channel\AMQPChannel;
 use PhpAmqpLib\Message\AMQPMessage;
 use Psr\Container\ContainerInterface;
 use SlimQ\Messaging\QueueConsumer;
-use SlimQ\Messaging\QueuePublisher;
+use SlimQ\Messaging\JsonQueuePublisher;
 
 class EndToEndTest extends \PHPUnit_Framework_TestCase
 {
@@ -26,7 +26,7 @@ class EndToEndTest extends \PHPUnit_Framework_TestCase
         $channel->shouldReceive('basic_publish')
             ->withAnyArgs()->andReturn();
 
-        $publisher = new QueuePublisher($exchange, $channel);
+        $publisher = new JsonQueuePublisher($exchange, $channel);
 
         $publisher->publish('', $class, $arguments);
     }

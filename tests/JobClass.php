@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Tests\SlimQ;
+namespace Tests\SimpleQueue;
 
 
 use SlimQ\JobInterface;

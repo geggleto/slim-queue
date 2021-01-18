@@ -1,7 +1,7 @@
 <?php
 
 use PhpAmqpLib\Connection\AMQPStreamConnection;
-use SlimQ\Messaging\QueuePublisher;
+use SlimQ\Messaging\JsonQueuePublisher;
 
 include_once __DIR__ . '/../vendor/autoload.php';
 include_once __DIR__ . '/SampleAddTask.php';
@@ -16,7 +16,7 @@ $stream = new AMQPStreamConnection(
 
 $channel = $stream->channel();
 
-$publisher = new QueuePublisher(
+$publisher = new JsonQueuePublisher(
     'my_exchange', $channel
 );
 
