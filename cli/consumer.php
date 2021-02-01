@@ -10,15 +10,15 @@ $config = new \SimpleQueue\Config\AmqpConfigFactory(
     'guest'
 );
 
-$channel = $config->getChannelAndDeclare('/', 'test', 'MyQueue.Cool');
+$channel = $config->getChannelAndDeclare('/', 'test', MyObject::getRoutingKey());
 
 $nilLogger = new \Psr\Log\NullLogger();
 
 $consumer = new \SimpleQueue\Messaging\JsonQueueConsumer(
-    'MyQueue.Cool',
+    MyObject::getRoutingKey(),
     $channel,
     'consumer-'.uniqid(),
-    new \SimpleQueue\Messaging\AMQPObjectFactory($nilLogger),
+    new \SimpleQueue\Messaging\AmqpObjectFactory($nilLogger),
     new MyHandler(),
     $nilLogger
 );

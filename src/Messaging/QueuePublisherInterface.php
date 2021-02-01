@@ -5,5 +5,5 @@ namespace SimpleQueue\Messaging;
 
 interface QueuePublisherInterface
 {
-    public function publish(AbstractAMQPObject $object): bool;
+    public function publish(AbstractAmqpObject $object): bool;
 }

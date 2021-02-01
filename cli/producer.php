@@ -10,11 +10,13 @@ $config = new \SimpleQueue\Config\AmqpConfigFactory(
     'guest'
 );
 
-$channel = $config->getChannelAndDeclare('/', 'test', 'MyQueue.Cool');
+$instance = new MyObject([
+    'myPayload' => uniqid()
+]);
+
+$channel = $config->getChannelAndDeclare('/', 'test', MyObject::getRoutingKey());
 
 $publisher = new \SimpleQueue\Messaging\JsonQueuePublisher('test', $channel, new \Psr\Log\NullLogger());
-
-$instance = new MyObject(uniqid());
 
 if ($publisher->publish($instance)) {
     echo "published test event";

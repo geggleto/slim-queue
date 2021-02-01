@@ -12,13 +12,13 @@ class JsonQueueConsumer
     private AMQPChannel $channel;
     private string $queueName;
     private string $identifier;
-    private AMQPObjectFactory $AMQPObjectFactory;
+    private AmqpObjectFactory $AMQPObjectFactory;
 
     private MessageHandler $handler;
 
     private LoggerInterface $logger;
 
-    public function __construct(string $queueName, AMQPChannel $channel, string $identifier, AMQPObjectFactory $AMQPObjectFactory, MessageHandler $handler, LoggerInterface  $logger)
+    public function __construct(string $queueName, AMQPChannel $channel, string $identifier, AmqpObjectFactory $AMQPObjectFactory, MessageHandler $handler, LoggerInterface  $logger)
     {
         $this->channel = $channel;
         $this->queueName = $queueName;

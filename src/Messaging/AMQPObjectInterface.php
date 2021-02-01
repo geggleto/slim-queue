@@ -4,11 +4,15 @@
 namespace SimpleQueue\Messaging;
 
 
-interface AMQPObjectInterface
+interface AmqpObjectInterface extends \JsonSerializable
 {
-    /**
-     * This method returns an array representation of the object
-     * @return array
-     */
-    public function serialize(): array;
+    public static function createFromArray(array $payload);
+
+    public static function getRoutingKey(): string;
+
+    public function getCorrelationId(): ?string;
+
+    public function getApplicationId(): ?string;
+
+    public function getPayload(): array;
 }

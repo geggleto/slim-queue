@@ -1,50 +1,21 @@
 <?php
 declare(strict_types=1);
 
-use SimpleQueue\Messaging\AbstractAMQPObject;
-
 include_once __DIR__ . '/../vendor/autoload.php';
 
-class MyObject extends \SimpleQueue\Messaging\AbstractAMQPObject {
+class MyObject extends \SimpleQueue\Messaging\AbstractAmqpObject {
+    protected const ROUTING_KEY = 'MyQueue.Cool';
 
-    private string $value;
-
-    public function __construct(string $value) {
-        $this->value = $value;
-    }
-
-    public function serialize(): array
+    public function getApplicationId(): ?string
     {
-        return [
-            'value' => $this->value
-        ];
-    }
-
-    public static function createFromArray(array $payload)
-    {
-        return new self($payload['value'] ?? '');
-    }
-
-    public function getRoutingKey(): string
-    {
-        return 'MyQueue.Cool';
-    }
-
-    public function correlationId(): ?string
-    {
-        return uniqid();
-    }
-
-    public function appilicationId(): ?string
-    {
-        return 'sf-internal';
+        return 'sf-internal-web';
     }
 }
 
 class MyHandler implements \SimpleQueue\Messaging\MessageHandler {
 
-    public function handle(AbstractAMQPObject $object)
+    public function handle(\SimpleQueue\Messaging\AmqpObjectInterface $object)
     {
-        var_dump($object->serialize());
+        var_dump($object->getPayload());
     }
 }

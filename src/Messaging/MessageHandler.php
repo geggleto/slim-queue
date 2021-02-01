@@ -7,5 +7,5 @@ namespace SimpleQueue\Messaging;
 
 interface MessageHandler
 {
-    public function handle(AbstractAMQPObject $object);
+    public function handle(AmqpObjectInterface $object);
 }

@@ -23,19 +23,13 @@ class JsonQueuePublisher implements QueuePublisherInterface
         $this->logger = $logger;
     }
 
-    public function publish(AbstractAMQPObject $object): bool
+    public function publish(AbstractAmqpObject $object): bool
     {
-        $wrapper = [
-            'classFQN' => get_class($object),
-            'correlation_id' => $object->correlationId(),
-            'application_id' => $object->appilicationId(),
-            'data' => $object->serialize()
-        ];
-        $message = json_encode($wrapper);
+        $message = json_encode($object->jsonSerialize());
 
         $options = $this->options + [
-            'app_id' => $wrapper['application_id'],
-            'correlation_id' => $wrapper['correlation_id']
+            'app_id' => $object->getApplicationId(),
+            'correlation_id' => $object->getCorrelationId()
         ];
 
         $message = new AMQPMessage($message, $options);
@@ -45,7 +39,7 @@ class JsonQueuePublisher implements QueuePublisherInterface
 
             return true;
         } catch (\Exception $exception) {
-            $this->logger->error('Failed to publish object', [$wrapper, $exception->getMessage(), $exception->getTrace()]);
+            $this->logger->error('Failed to publish object', [$object->jsonSerialize(), $exception->getMessage(), $exception->getTrace()]);
             return false;
         }
     }
