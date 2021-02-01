@@ -16,7 +16,7 @@ class AMQPObjectFactory
         $this->logger = $logger;
     }
 
-    public function hydrate(array $object): ?object {
+    public function hydrate(array $object): ?AbstractAMQPObject {
         $this->logger->info('Received object', $object);
 
         /** @var $class AbstractAMQPObject */

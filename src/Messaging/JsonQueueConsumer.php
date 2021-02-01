@@ -30,6 +30,7 @@ class JsonQueueConsumer
 
     public function consume()
     {
+
         $this->channel->basic_consume($this->queueName, $this->identifier, false, false, false, false, [$this, 'start']);
 
         while ($this->channel->is_consuming()) {
