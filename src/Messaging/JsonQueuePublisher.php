@@ -38,10 +38,10 @@ class JsonQueuePublisher implements QueuePublisherInterface
             'correlation_id' => $wrapper['correlation_id']
         ];
 
-        $amqpmessage = new AMQPMessage($message, $options);
+        $message = new AMQPMessage($message, $options);
 
         try {
-            $this->channel->basic_publish($amqpmessage, $this->exchangeName, $object->getRoutingKey());
+            $this->channel->basic_publish($message, $this->exchangeName, $object->getRoutingKey());
 
             return true;
         } catch (\Exception $exception) {

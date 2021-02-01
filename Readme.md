@@ -1,32 +1,12 @@
-# SlimQ
+# SimpleQueue
 
-Slim and Simple RabbitMQ Queue Producer/Consumer Library
+Library to provide developers easy to use Serialize/Hydration over AMQP protocol.
 
-SlimQ enables you to push messages onto a RabbitMQ queue for consumption in other parts of your system.
+# Dependencies
+`docker run -d --hostname myrabbit --name myrabbit -p 15672:15672 -p 5672:5672 rabbitmq:3.8.11-management`
 
-# Usage
-
-Inside your PHP Web App you will use the Publisher to push messages to your queue.
-
-Outside of your web app you will consume messages by using the QueueConsumer.
-
-#### RabbitMQ
-
-Newer users to RabbitMQ are encouraged to read the RabbitMQ documentation on message brokering.
-
-### Jobs
-
-Jobs are the object type that consume your messages. They implement the JobInterface and should return true or false.
-True upon successful consumption of the message and False otherwise.
-
-### Publishing
-
-Publishing is easy; `$publisher->publish(MyJob::class, ['arg1'=>value])`
-
-### Consumption
-
-Consuming is easy; `$consumer->consume();`
-
-### How it works
-
-More or less the JobInterface defines an Array to use for Construction of your Job/Command/Instruction
+### See it in action
+- Use the RabbitMQ Admin panel at `http://localhost:15672`
+    - Username `guest`
+    - Password `quest`
+- Run the cli script - `php cli/producer.php`

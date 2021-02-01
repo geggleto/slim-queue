@@ -13,14 +13,12 @@ class JsonQueueConsumer
     private string $queueName;
     private string $identifier;
     private AMQPObjectFactory $AMQPObjectFactory;
-    /**
-     * @var callable
-     */
-    private $handler;
+
+    private MessageHandler $handler;
 
     private LoggerInterface $logger;
 
-    public function __construct(string $queueName, AMQPChannel $channel, string $identifier, AMQPObjectFactory $AMQPObjectFactory, callable $handler, LoggerInterface  $logger)
+    public function __construct(string $queueName, AMQPChannel $channel, string $identifier, AMQPObjectFactory $AMQPObjectFactory, MessageHandler $handler, LoggerInterface  $logger)
     {
         $this->channel = $channel;
         $this->queueName = $queueName;
@@ -51,7 +49,7 @@ class JsonQueueConsumer
 
         if ($result) {
             try {
-                call_user_func_array($this->handler, [$result]);
+                $this->handler->handle($result);
                 $this->logger->info('Acking Message', [$correlationId, $appId]);
                 $message->ack();
             } catch (\Throwable $exception) {
