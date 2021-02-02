@@ -40,11 +40,17 @@ class JsonQueueConsumer
 
     public function start(AMQPMessage $message)
     {
-        $correlationId = $message->get_properties()['correlation_id'];
-        $appId = $message->get_properties()['app_id'];
+        $messageProps = $message->get_properties();
+        $correlationId = $messageProps['correlation_id'] ?? '';
+        $appId = $messageProps['app_id'] ?? '';
 
         $this->logger->info('Received message from Rabbit', [$correlationId, $appId, $message->body]);
         $amqpSerializedObject = json_decode($message->body, true);
+
+        if ($amqpSerializedObject === false) {
+            $message->nack();
+            return;
+        }
 
         $result = $this->AMQPObjectFactory->hydrate($amqpSerializedObject);
 
