@@ -7,7 +7,7 @@ namespace SimpleQueue\Messaging;
 
 abstract class AbstractAmqpObject implements AmqpObjectInterface
 {
-    protected const ROUTING_KEY = null;
+    protected static string $routingKey;
     private array $payload;
     protected string $correlationId;
 
@@ -23,11 +23,7 @@ abstract class AbstractAmqpObject implements AmqpObjectInterface
 
     public static function getRoutingKey(): string
     {
-        if (null === static::ROUTING_KEY) {
-            throw new \RuntimeException('Add a routing key');
-        }
-
-        return static::ROUTING_KEY;
+        return static::$routingKey;
     }
 
     public static function createFromArray(array $data)
