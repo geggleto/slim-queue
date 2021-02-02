@@ -27,7 +27,7 @@ If your application nacks a message it will flow to the dead-letter queue for fa
 
 ```php
 class MyObject extends \SimpleQueue\Messaging\AbstractAmqpObject {
-    protected const ROUTING_KEY = 'MyQueue.Cool';
+    protected static string $routingKey = 'MyQueue.Cool';
 
     public function getApplicationId(): ?string
     {
