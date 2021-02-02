@@ -9,8 +9,10 @@ $config = new \SimpleQueue\Config\AmqpConfigFactory(
     'guest',
     'guest'
 );
+$exchangeName = 'test';
+$vhost = '/';
 
-$channel = $config->getChannelAndDeclare('/', 'test', MyObject::getRoutingKey());
+$channel = $config->getChannelAndDeclare($vhost, $exchangeName, MyObject::getRoutingKey());
 
 $nilLogger = new \Psr\Log\NullLogger();
 
