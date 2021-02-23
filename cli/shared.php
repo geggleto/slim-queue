@@ -4,7 +4,7 @@ declare(strict_types=1);
 include_once __DIR__ . '/../vendor/autoload.php';
 
 class MyObject extends \SimpleQueue\Messaging\AbstractAmqpObject {
-    protected const ROUTING_KEY = 'MyQueue.Cool';
+    protected static string $routingKey = 'MyQueue.Cool';
 
     public function getApplicationId(): ?string
     {
